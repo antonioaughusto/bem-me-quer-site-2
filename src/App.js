@@ -1,45 +1,112 @@
-import React from "react";
+import React, { useState } from "react";
 
+const brand = { pink:"#e6007e", lightBlue:"#9fd8ff" };
 const company = "Bem Me Quer";
 const slogan = "Ser criança é voar por sua imaginação";
 
 export default function App(){
+  const [form, setForm] = useState({ nome:"", email:"", mensagem:"" });
+  const phone = "54991543109";
+  const email = "mari.suliani@gmail.com";
+
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    window.location.href = `mailto:${email}?subject=Contato — ${company}&body=Nome: ${form.nome}%0AEmail: ${form.email}%0AMensagem:%0A${form.mensagem}`;
+  };
+
   return (
     <div>
       <header className="header">
         <div className="container nav">
           <div className="brand">
-            <img src="/logo.png" className="logo" alt="Logo Bem Me Quer" />
+            <img src="/logo.png" alt="Logo Bem Me Quer" className="logo" />
             <div>
               <div className="brand-title">{company}</div>
               <div style={{fontSize:12}}>{slogan}</div>
             </div>
           </div>
-          <a href="https://wa.me/54991543109" className="btn btn-primary">WhatsApp</a>
+          <div style={{display:'flex',gap:10}}>
+            <a href="#sobre">Sobre</a>
+            <a href="#programas">Programas</a>
+            <a href="#galeria">Galeria</a>
+            <a href="#contato">Contato</a>
+            <a href={`https://wa.me/${phone}`} className="btn btn-primary">WhatsApp</a>
+          </div>
         </div>
       </header>
 
       <main className="container">
-        <section className="hero">
-          <h1 style={{color:"#e6007e"}}>Um lugar onde brincar é aprender e imaginar é crescer</h1>
-          <p>{slogan}</p>
-          <div className="grid grid-2">
-            <img src="/images/por-do-sol.jpg" alt="Foto destaque" style={{width:"100%",borderRadius:10}}/>
-            <div>
-              <h2>Sobre nós</h2>
-              <p>Na Bem Me Quer, acreditamos que a infância é o período mais criativo da vida. Nosso trabalho une afeto, brincadeira e projetos interdisciplinares que desenvolvem autonomia, coordenação motora, comunicação e socialização. <strong>As famílias participam ativamente das experiências.</strong></p>
-              <a href="#contato" className="btn btn-primary" style={{marginTop:12,display:"inline-block"}}>Conheça nossa proposta pedagógica</a>
+        {/* HERO */}
+        <section className="hero" id="inicio">
+          <span className="badge">Educação infantil com afeto e criatividade</span>
+          <h1>Um lugar onde <strong>brincar</strong> é aprender e <strong>imaginar</strong> é crescer.</h1>
+          <p>A {company} acolhe crianças em um ambiente seguro, colorido e cheio de descobertas.</p>
+          <div className="grid grid-2" style={{alignItems:'center',marginTop:12}}>
+            <div className="card">
+              <img src="/images/por-do-sol.jpg" alt="Foto destaque" style={{width:'100%',height:280,objectFit:'cover',borderRadius:10}}/>
+            </div>
+            <div className="card">
+              <p>Contato com a natureza, artes e musicalização, alfabetização lúdica e uma equipe carinhosa e qualificada.</p>
+              <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
+                <a href={`https://wa.me/${phone}`} className="btn btn-primary">Agendar visita</a>
+                <a href="#programas" className="btn btn-outline">Conhecer programas</a>
+              </div>
             </div>
           </div>
         </section>
 
-        <section id="galeria">
+        {/* SOBRE */}
+        <section id="sobre" style={{padding:"10px 0"}}>
+          <div className="grid grid-2" style={{alignItems:'start'}}>
+            <div>
+              <h2>Sobre nós</h2>
+              <p>Na Bem Me Quer, acreditamos que a infância é o período mais criativo da vida. Nosso trabalho une afeto, brincadeira e projetos interdisciplinares que desenvolvem autonomia, coordenação motora, comunicação e socialização. <strong>As famílias participam ativamente das experiências.</strong></p>
+              <a href="#contato" className="btn btn-primary" style={{marginTop:10,display:'inline-block'}}>Conheça nossa proposta pedagógica</a>
+            </div>
+            <div className="grid">
+              <img src="/images/pao-caseiro.jpg" alt="Atividades culinárias" style={{width:'100%',height:160,objectFit:'cover',borderRadius:10}}/>
+              <img src="/images/pe-no-chao.jpg" alt="Pés na grama" style={{width:'100%',height:160,objectFit:'cover',borderRadius:10}}/>
+            </div>
+          </div>
+        </section>
+
+        {/* PROGRAMAS */}
+        <section id="programas" style={{padding:"10px 0"}}>
+          <h2>Programas</h2>
+          <div className="grid grid-3">
+            <div className="card"><strong>Berçário & Maternal</strong><p>Estímulos sensoriais e musicalização.</p></div>
+            <div className="card"><strong>Educação Infantil</strong><p>Projetos lúdicos e alfabetização inicial.</p></div>
+            <div className="card"><strong>Tempo Integral</strong><p>Artes, culinária e relaxamento.</p></div>
+          </div>
+        </section>
+
+        {/* GALERIA */}
+        <section id="galeria" style={{padding:"10px 0"}}>
           <h2>Galeria</h2>
           <div className="grid grid-3 gallery">
             {['/images/pao-caseiro.jpg','/images/pe-no-chao.jpg','/images/por-do-sol.jpg','/images/artesanato-natal.jpg'].map((src,i)=>(
-              <img key={i} src={src} alt={"Galeria "+(i+1)} />
+              <img key={i} src={src} alt={`Galeria ${i+1}`} />
             ))}
           </div>
+        </section>
+
+        {/* CONTATO */}
+        <section id="contato" style={{padding:"10px 0"}}>
+          <h2>Fale com a gente</h2>
+          <form className="form" onSubmit={(e)=>{e.preventDefault();window.location.href = `mailto:${email}?subject=Contato — ${company}&body=Nome: ${form.nome}%0AEmail: ${form.email}%0AMensagem:%0A${form.mensagem}`;}}>
+            <input placeholder="Seu nome" required value={form.nome} onChange={(e)=>setForm({...form,nome:e.target.value})} />
+            <input type="email" placeholder="Seu e-mail" required value={form.email} onChange={(e)=>setForm({...form,email:e.target.value})} />
+            <textarea rows="4" placeholder="Mensagem" required value={form.mensagem} onChange={(e)=>setForm({...form,mensagem:e.target.value})} />
+            <div style={{display:"flex",gap:10}}>
+              <button className="btn btn-primary" type="submit">Enviar</button>
+              <a className="btn btn-outline" href={`https://wa.me/${phone}`}>WhatsApp</a>
+            </div>
+          </form>
+          <p style={{marginTop:8}}>
+            <a href={`mailto:${email}`}>E-mail</a> •{" "}
+            <a href={`https://wa.me/${phone}`}>WhatsApp</a> •{" "}
+            <a href="https://www.instagram.com/bem_me_quer_recreacao_?igsh=OWY5bWRvcmJ6d242" target="_blank" rel="noreferrer">Instagram</a>
+          </p>
         </section>
       </main>
 
@@ -47,7 +114,7 @@ export default function App(){
         <div className="container footer-grid">
           <div>© {new Date().getFullYear()} {company}.</div>
           <div className="center">{slogan}</div>
-          <div className="end"><a href="mailto:mari.suliani@gmail.com">Contato</a></div>
+          <div className="end"><a href={`mailto:${email}`}>Contato</a></div>
         </div>
       </footer>
     </div>
