@@ -81,10 +81,12 @@ export default function App(){
         </section>
 
         {/* GALERIA */}
-       <section id="galeria" style={{padding:"10px 0"}}>
+      <section id="galeria" style={{padding:"10px 0"}}>
   <h2>Galeria</h2>
-  <div className="grid grid-3 gallery">
-    {[
+
+  {/* lista de imagens da galeria */}
+  {(() => {
+    const galleryImages = [
       '/images/artesanato-natal.jpg',
       '/images/brincadeiras-1.jpg',
       '/images/brincadeiras-2.jpg',
@@ -105,13 +107,68 @@ export default function App(){
       '/images/brincadeiras-17.jpg',
       '/images/brincadeiras-18.jpg',
       '/images/brincadeiras-19.jpg',
+      '/images/pao-caseiro.jpg',
       '/images/pe-no-chao.jpg',
       '/images/por-do-sol.jpg'
-    ].map((src,i)=>(
-      <img key={i} src={src} alt={`Galeria ${i+1}`} />
-    ))}
-  </div>
+    ];
+
+    // estados do lightbox
+    const [open, setOpen] = useState(false);
+    const [index, setIndex] = useState(0);
+
+    // navegação por teclado
+    useEffect(() => {
+      if (!open) return;
+      const onKey = (e) => {
+        if (e.key === 'Escape') setOpen(false);
+        if (e.key === 'ArrowRight') setIndex((i) => (i + 1) % galleryImages.length);
+        if (e.key === 'ArrowLeft') setIndex((i) => (i - 1 + galleryImages.length) % galleryImages.length);
+      };
+      window.addEventListener('keydown', onKey);
+      return () => window.removeEventListener('keydown', onKey);
+    }, [open, galleryImages.length]);
+
+    return (
+      <>
+        {/* grade de miniaturas */}
+        <div className="grid grid-3 gallery">
+          {galleryImages.map((src,i)=>(
+            <img
+              key={i}
+              src={src}
+              alt={`Galeria ${i+1}`}
+              onClick={() => { setIndex(i); setOpen(true); }}
+              style={{cursor:'pointer'}}
+            />
+          ))}
+        </div>
+
+        {/* overlay do lightbox */}
+        {open && (
+          <div className="lightbox" onClick={() => setOpen(false)} role="dialog" aria-modal="true">
+            <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+              <button className="lightbox-close" onClick={() => setOpen(false)} aria-label="Fechar">×</button>
+              <button
+                className="lightbox-arrow left"
+                onClick={() => setIndex((i) => (i - 1 + galleryImages.length) % galleryImages.length)}
+                aria-label="Anterior"
+              >‹</button>
+
+              <img className="lightbox-img" src={galleryImages[index]} alt={`Imagem ampliada ${index+1}`} />
+
+              <button
+                className="lightbox-arrow right"
+                onClick={() => setIndex((i) => (i + 1) % galleryImages.length)}
+                aria-label="Próxima"
+              >›</button>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  })()}
 </section>
+
 
 
         {/* CONTATO */}
