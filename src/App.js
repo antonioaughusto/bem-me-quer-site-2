@@ -64,8 +64,8 @@ export default function App(){
               <a href="#contato" className="btn btn-primary" style={{marginTop:10,display:'inline-block'}}>Conheça nossa proposta pedagógica</a>
             </div>
             <div className="grid">
-              <img src="/images/pao-caseiro.jpg" alt="Atividades culinárias" style={{width:'100%',height:160,objectFit:'cover',borderRadius:10}}/>
-              <img src="/images/pe-no-chao.jpg" alt="Pés na grama" style={{width:'100%',height:160,objectFit:'cover',borderRadius:10}}/>
+              <img src="/images/brincadeiras-13.jpg" alt="Atividades culinárias" style={{width:'100%',height:160,objectFit:'cover',borderRadius:10}}/>
+              <img src="/images/brincadeiras-18.jpg" alt="Pés na grama" style={{width:'100%',height:160,objectFit:'cover',borderRadius:10}}/>
             </div>
           </div>
         </section>
@@ -81,14 +81,38 @@ export default function App(){
         </section>
 
         {/* GALERIA */}
-        <section id="galeria" style={{padding:"10px 0"}}>
-          <h2>Galeria</h2>
-          <div className="grid grid-3 gallery">
-            {['/images/pao-caseiro.jpg','/images/pe-no-chao.jpg','/images/por-do-sol.jpg','/images/artesanato-natal.jpg'].map((src,i)=>(
-              <img key={i} src={src} alt={`Galeria ${i+1}`} />
-            ))}
-          </div>
-        </section>
+       <section id="galeria" style={{padding:"10px 0"}}>
+  <h2>Galeria</h2>
+  <div className="grid grid-3 gallery">
+    {[
+      '/images/artesanato-natal.jpg',
+      '/images/brincadeiras-1.jpg',
+      '/images/brincadeiras-2.jpg',
+      '/images/brincadeiras-3.jpg',
+      '/images/brincadeiras-4.jpg',
+      '/images/brincadeiras-5.jpg',
+      '/images/brincadeiras-6.jpg',
+      '/images/brincadeiras-7.jpg',
+      '/images/brincadeiras-8.jpg',
+      '/images/brincadeiras-9.jpg',
+      '/images/brincadeiras-10.jpg',
+      '/images/brincadeiras-11.jpg',
+      '/images/brincadeiras-12.jpg',
+      '/images/brincadeiras-13.jpg',
+      '/images/brincadeiras-14.jpg',
+      '/images/brincadeiras-15.jpg',
+      '/images/brincadeiras-16.jpg',
+      '/images/brincadeiras-17.jpg',
+      '/images/brincadeiras-18.jpg',
+      '/images/brincadeiras-19.jpg',
+      '/images/pe-no-chao.jpg',
+      '/images/por-do-sol.jpg'
+    ].map((src,i)=>(
+      <img key={i} src={src} alt={`Galeria ${i+1}`} />
+    ))}
+  </div>
+</section>
+
 
         {/* CONTATO */}
         <section id="contato" style={{padding:"10px 0"}}>
