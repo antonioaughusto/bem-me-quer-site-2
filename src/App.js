@@ -31,7 +31,6 @@ export default function App(){
     '/images/brincadeiras-17.jpg',
     '/images/brincadeiras-18.jpg',
     '/images/brincadeiras-19.jpg',
-    '/images/pao-caseiro.jpg',
     '/images/pe-no-chao.jpg',
     '/images/por-do-sol.jpg'
   ];
